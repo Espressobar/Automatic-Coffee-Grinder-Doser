@@ -5,4 +5,7 @@ The project was first mentioned @ www.espressobar.dk in this thread: http://www.
 
 Code is basically a danish translation and "adaptation" of the original code found here: https://www.wuala.com/Cosmicos/SoftFidelity/M%C3%BChlentimer/OledTimerWizard/?key=bh3lscgclbc5
 
-By adaptation I mean changes to my liking(!)
+Documentation (HW and Menu flow diagram) can be found under "Issues" here:
+https://github.com/SteffenLav/Automatic-Coffee-Grinder-Doser/issues/1
+
+Note: By "adaptation" I mean changes to my liking(!)
