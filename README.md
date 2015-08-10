@@ -10,4 +10,4 @@ Important: All .ino files must reside in a folder named "OLEDTimerWizard" and ad
 Documentation (HW and Menu flow diagram) can be found under "Issues" here:
 https://github.com/SteffenLav/Automatic-Coffee-Grinder-Doser/issues/1
 
-Note: By "adaptation" I mean changes to my liking(!)
+Note: By "adaptation" I mean changes to my liking(!) Also, to get the smalest possible dosing variation you should maintain a constant preasure on top of your beans in the hopper. Prefarably you should replace the standard hopper with a glass or plastic tube in wich you place a metal load on top of the beans...
