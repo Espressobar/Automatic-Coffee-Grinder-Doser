@@ -10,7 +10,7 @@ Important: All .ino files must reside in a folder named "OLEDTimerWizard" and ad
 Documentation (HW and Menu flow diagram) can be found under "Issues" here:
 https://github.com/SteffenLav/Automatic-Coffee-Grinder-Doser/issues/1
 
-The HW wishlist:
+The HW wishlist - $12 total :) :
 
 Double Opto-coupler Relay (switching both N+L):
 http://www.ebay.com/itm/Two-2-Channel-Relay-Module-With-Optocoupler-For-PIC-AVR-DSP-ARM-Arduino-5V-New-/181752994310?hash=item2a51529a06
