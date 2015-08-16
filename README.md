@@ -10,6 +10,7 @@ Important: All .ino files must reside in a folder named "OLEDTimerWizard" and ad
 Documentation (HW and Menu flow diagram) can be found under "Issues" here:
 https://github.com/SteffenLav/Automatic-Coffee-Grinder-Doser/issues/1
 
+
 The HW wishlist - $12 total :) :
 
 Double Opto-coupler Relay (switching both N+L):
@@ -26,5 +27,12 @@ http://www.ebay.com/itm/USB-Nano-V3-0-ATmega328-16M-5V-Micro-controller-CH340G-b
 
 Rotary Encoder w. Momentary Push:
 http://www.ebay.com/itm/12mm-Rotary-Encoder-Push-Button-Switch-Keyswitch-Electronic-Components-Stable-/181601752480?hash=item2a484ed5a0
+
+Encoder Knob, Black Alu:
+http://www.ebay.com/itm/361333592515?_trksid=p2060353.m2749.l2649&ssPageName=STRK%3AMEBIDX%3AIT
+
+Momentary push for dose pre-sellect, Black Alu flush:
+http://www.ebay.com/itm/181585627102?_trksid=p2060353.m2749.l2649&ssPageName=STRK%3AMEBIDX%3AIT
+
 
 Note: By "adaptation" I mean changes to my liking(!) Also, to get the smalest possible dosing variation you should maintain a constant preasure on top of your beans in the hopper. Prefarably you should replace the standard hopper with a glass or plastic tube in wich you place a metal load on top of the beans...
