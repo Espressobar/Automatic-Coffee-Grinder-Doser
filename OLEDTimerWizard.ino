@@ -55,9 +55,9 @@
  */
 
 // include libraries
-#include <MsTimer2.h>     // http://playground.arduino.cc/Main/MsTimer2
-#include <ClickButton.h>  // https://code.google.com/p/clickbutton/
-#include <U8glib.h>       // https://code.google.com/p/u8glib/
+#include <MsTimer2.h>     // https://www.dropbox.com/sh/7uxorxk525zrtxk/AACaTxeZjhuq60BrImUm0_Lra?dl=0
+#include <ClickButton.h>  // see above
+#include <U8glib.h>       // see above
 #include <avr/eeprom.h>   // enable eeprom read and write
 #include <stdio.h>
 
