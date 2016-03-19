@@ -5,7 +5,10 @@ The project was first mentioned @ www.espressobar.dk in this thread: http://www.
 
 Code is basically a danish translation and "adaptation" of the original code found here: https://www.wuala.com/Cosmicos/SoftFidelity/M%C3%BChlentimer/OledTimerWizard/?key=bh3lscgclbc5
 
-Important: All .ino files must reside in a folder named "OLEDTimerWizard" and additional libraries must be available as per instructions in OLEDTimerWizard.ino
+Important:
+1) All .ino files must reside in a folder named "OLEDTimerWizard" and additional libraries must be available as per instructions in OLEDTimerWizard.ino
+2) You will need to add 3 additional libraries to your library folder - you get them from here:
+https://www.dropbox.com/sh/7uxorxk525zrtxk/AACaTxeZjhuq60BrImUm0_Lra?dl=0
 
 Documentation (HW and Menu flow diagram) can be found under "Issues" here:
 https://github.com/SteffenLav/Automatic-Coffee-Grinder-Doser/issues/1
