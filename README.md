@@ -11,7 +11,7 @@ Documentation (HW and Menu flow diagram) can be found under "Documentation"
 
 The HW shopping list - approx $20 total :)
 
-Double Opto-coupler Relay (switching both N+L):
+Double Opto-coupler Relay (switching both N+L), if you like to only switch the Line then you can do with a single:
 http://www.ebay.com/itm/Two-2-Channel-Relay-Module-With-Optocoupler-For-PIC-AVR-DSP-ARM-Arduino-5V-New-/181752994310?hash=item2a51529a06
 
 White OLED 128x64 pix:
