@@ -104,13 +104,24 @@ void draw() {
   byte boxWidth = 0;
   if ( stateIdx == SJSET ) boxWidth = display_width;
   if ( stateIdx == SJOFF ) boxWidth = 0;
-  if ( stateIdx == SJON ) boxWidth = display_width * ( 1 - float(currentTime)/float(doseTime[doseIdx]) );
-  if ( stateIdx != WIZARD ) { 
+  if ( stateIdx == SJON ) {
     u8g.drawFrame(0,0,display_width,10);
+    boxWidth = display_width * ( 1 - float(currentTime)/float(doseTime[doseIdx]) );
+    }
+  if ( stateIdx != WIZARD || stateIdx != PAUSE ) { 
+    // u8g.drawFrame(0,0,display_width,10);
     u8g.drawBox(0,0,boxWidth,10);
   }
   
   switch (stateIdx) {
+
+  #ifdef screensaver
+    case PAUSE:
+    //  u8g.setFont(u8g_font_fub11); 
+    //  u8g.setPrintPos(40, 45);
+    //  u8g.print("Pause");
+        break;
+  #endif
   
   case SJSET:
     if (doseIdx != DOSEM) {

@@ -33,7 +33,12 @@ void encoderAction()
          chooser(0,2);
         break;
         }
-   
+        #ifdef screensaver
+          case PAUSE:       // Exit screensaver and return to normal operation mode
+           offPause();
+          break;
+        #endif
+        
         case SJOFF:       // normal operation mode
           chooser(1,0);
         break;
@@ -65,10 +70,19 @@ void encoderAction()
 void integerInput(){                // input integer for time and weight
   doseTime[doseIdx] += (encoderVal > 0) ? 1 : -1;
   if (doseTime[doseIdx] <= 0) doseTime[doseIdx]=0;
+ 
+  #ifdef screensaver
+    previousMillis = millis();
+  #endif
 }
 
 void chooser(byte max, byte min){   // input integer from max to min e.g. YES/NO, number of doses, QB-setup...
   int ADOSES; 
+  
+  #ifdef screensaver
+    previousMillis = millis();
+  #endif 
+  
   if ( setupStateIdx == INIT ) {
     ADOSES = totalPortions-1; 
   } else {
