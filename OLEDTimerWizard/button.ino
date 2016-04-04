@@ -118,7 +118,15 @@ void buttonAction() {
   if ( (stateIdx == SJON) && (encoderButton.clicks == 1) ) {
           offRelay();
         }
-  
+
+
+  #ifdef screensaver
+  // PAUSE -> OFF
+    else if ( (stateIdx == PAUSE) && (encoderButton.clicks == 1) ) {
+            offPause();
+        }
+  #endif
+
   // OFF -> ON
   else if ( (stateIdx == SJOFF) && (encoderButton.clicks == 1) ) {
           onRelay();
@@ -129,13 +137,27 @@ void buttonAction() {
           doseIdx = quickButtonPortion[QB1];
           onRelay();
         }
+        
+  #ifdef screensaver 
+  // quickbutton 1 pressed when paused
+  else if ( ( stateIdx == PAUSE) && (quickButton1.clicks == 1) ) {
+          offPause();
+        }
+  #endif
   
   // quickbutton 2 pressed
   else if ( (stateIdx == SJOFF) && (quickButton2.clicks == 1) ) {
           doseIdx = quickButtonPortion[QB2];
           onRelay();
         }
-  
+
+  #ifdef screensaver
+    // quickbutton 2 pressed when paused
+    else if ( ( stateIdx == PAUSE) && (quickButton2.clicks == 1) ) {
+            offPause();     
+          }
+  #endif   
+
   // OFF -> SET
   else if ( (stateIdx == SJOFF) && (doseIdx != DOSEM)&& (encoderButton.clicks == -1) ) {
           stateIdx = SJSET;
@@ -212,6 +234,9 @@ void do_dosecalc() {
 void onRelay() {
   stateIdx = SJON;
   currentTime = doseTime[doseIdx];
+   #ifdef LIGHT
+    led.fade(MAX_LIGHT, 1000);
+  #endif
 }
 
 /* turn relay off */

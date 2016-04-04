@@ -7,6 +7,11 @@
  
  Translated and adapted to Danish language by Steffe Lav (user "S.Lav" @ http://www.kaffee-netz.de or "Lav" @ http://www.espressobar.dk )
 
+ changelog v03/03/16
+ - added screensaver. Allows you to enable screensaver after a defined amount of seconds.
+ - added light control. Allows you to add an LED to pin 10. Light will fade up and down according to defined values. Will fade down when screensaver is activated.
+ - timer indicator, frame will only be drawn when actually grinding.
+ 
  changelog v05/28/15
  - bugfixes
  - code optimization
@@ -60,6 +65,7 @@
 #include <U8glib.h>       // see above
 #include <avr/eeprom.h>   // enable eeprom read and write
 #include <stdio.h>
+#include <LEDFader.h>
 
 // *** BEGIN OF CONFIG SECTION ************************************************************************************************************************
 // define arduino pins
@@ -69,6 +75,7 @@
 #define QBTN_PIN_1     5  // pin quick-button 1
 #define QBTN_PIN_2     6  // pin quick-button 2
 #define RELAY_PIN      8
+#define LED_PIN       10  //Pin for LED-light.
 #define PINtoRESET     12 // connect wire from this pin to rst in order to use the soft-reset function
 
 // read settings from EEPROM if version number is correct; change version number to reset settings
@@ -84,6 +91,32 @@ byte dose[]               = { 0, 70, 140, 180, 210, 280 };      // pre-selected 
 byte quickButtonPortion[] = { 1, 2 };                          // pre-selection quickbuttons
 char *portion_name[]      = {" 7g", " 14g", "18g", "21g", "28g" }; // name of portions (the weight in gram) which is shown on display
 int probeGrindTime        = 100;                               // time for calibration grinding (e.g. 100 = 10s)
+
+
+// Screensaver
+// Uncomment the following line to activate screensaver:
+#define screensaver
+
+#ifdef screensaver
+  boolean isPaused = false;
+  const long interval = 60;        // Seconds of idletime before activating screensaver.
+  unsigned long previousMillis = 0;
+#endif
+
+// LIGHT
+// Connect LED power + to pin 10.
+// uncomment the following line to activate light control:
+#define LIGHT
+
+#ifdef LIGHT
+  #define FADE_TIME 3000          // amount of milliseconds it takes to fade light. Fade time when grind is finished is fixed to 10 seconds.
+  #define MAX_LIGHT 255           // 0-255. Amount of light when grinding.
+  #define MIN_LIGHT 128           // 0-255. Amount of light when idle.
+  #define DIR_UP 1
+  #define DIR_DOWN -1
+  LEDFader led;
+  int direction = DIR_UP;
+#endif
 
 // *** DEBUGING ***
 
@@ -113,6 +146,7 @@ int probeGrindTime        = 100;                               // time for calib
 #define STEP3             11    // wizard: time input depending on probe grindig
 #define STEP4             12    // wizard: factor automatic (yes/no)
 #define STEP5             13    // wizard: factor input
+#define PAUSE             14    // Screensaver
 
 // Quickbuttons
 #define QUICKBUTTONS 2          // number of programable quickbuttons
@@ -167,6 +201,11 @@ ClickButton quickButton2(QBTN_PIN_2, LOW, CLICKBTN_PULLUP);
 
 /* SET UP */
 void setup() {
+
+  #ifdef LIGHT
+    led = LEDFader(LED_PIN);
+    onLight();
+  #endif
 
   pinMode(PINtoRESET, INPUT);    // Just to be clear, as default is INPUT. Not really needed.
   digitalWrite(PINtoRESET, LOW); // Prime it, but does not actually set output.
@@ -232,6 +271,14 @@ void setup() {
 /* MAIN */
 void loop() {
 
+  #ifdef LIGHT
+    led.update();
+  #endif
+    
+  #ifdef screensaver
+    pauseTimer();
+  #endif
+
   // rebuild display
   if ( refreshDisplay ) {
     refreshDisplay = false;
@@ -261,15 +308,70 @@ void timerAction() {
   // check currentTime
   if ( stateIdx == SJON ) {
     currentTime--;
+    
+    #ifdef screensaver
+      previousMillis = millis();
+    #endif
+    
     refreshDisplay = true;
     if (currentTime < 0) {
+      
+      #ifdef LIGHT
+        direction = DIR_DOWN;
+        led.fade(MIN_LIGHT, 10000);
+      #endif
+      
       offRelay();
     }
   }
-
-
 }
 
+#ifdef screensaver 
 
+  void pauseTimer() {
+  
+    if (isPaused !=true || stateIdx != SJON || stateIdx !=WIZARD) {
+      // || stateIdx !=SJSET || stateIdx !=QB1SET || stateIdx !=QB2SET
+      //Ovenstående skal kun være med, hvis man ikke ønsker pause, mens man er ved at indstille noget.
+  
+    unsigned long currentMillis = millis();
+    if (currentMillis - previousMillis >= interval*1000) {
+      previousMillis = currentMillis;
+      
+    onPause();
+    
+       }
+     }
+   }
+
+
+  void onPause() {
+    isPaused = true;
+    stateIdx = PAUSE;
+    //fade light to 0
+    refreshDisplay = true;   
+      // LED no longer fading, switch direction
+    #ifdef LIGHT
+    direction = DIR_DOWN;
+      led.fade(0, FADE_TIME);
+    #endif
+  }
+  
+  void offPause() {
+    isPaused = false;
+    stateIdx = SJOFF;
+    previousMillis = millis();
+    #ifdef LIGHT
+      onLight();
+    #endif
+  }
+#endif
+
+#ifdef LIGHT
+  void onLight(){
+    direction = DIR_UP;
+     led.fade(MIN_LIGHT, FADE_TIME);
+    }
+#endif
 
 
