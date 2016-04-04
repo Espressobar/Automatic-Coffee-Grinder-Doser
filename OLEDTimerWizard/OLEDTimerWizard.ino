@@ -316,10 +316,6 @@ void timerAction() {
     refreshDisplay = true;
     if (currentTime < 0) {
       
-      #ifdef LIGHT
-        direction = DIR_DOWN;
-        led.fade(MIN_LIGHT, 10000);
-      #endif
       
       offRelay();
     }
