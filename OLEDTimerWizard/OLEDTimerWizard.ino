@@ -65,7 +65,7 @@
 #include <U8glib.h>       // see above
 #include <avr/eeprom.h>   // enable eeprom read and write
 #include <stdio.h>
-#include <LEDFader.h>
+#include <LEDFader.h>     // https://github.com/jgillick/arduino-LEDFader
 
 // *** BEGIN OF CONFIG SECTION ************************************************************************************************************************
 // define arduino pins
@@ -202,10 +202,7 @@ ClickButton quickButton2(QBTN_PIN_2, LOW, CLICKBTN_PULLUP);
 /* SET UP */
 void setup() {
 
-  #ifdef LIGHT
-    led = LEDFader(LED_PIN);
-    onLight();
-  #endif
+
 
   pinMode(PINtoRESET, INPUT);    // Just to be clear, as default is INPUT. Not really needed.
   digitalWrite(PINtoRESET, LOW); // Prime it, but does not actually set output.
@@ -266,6 +263,10 @@ void setup() {
   // display bug workaround (not needed on my display)
   //stateIdx = SJSET; drawDisplay();
   //stateIdx = SJOFF; drawDisplay();
+    #ifdef LIGHT
+    led = LEDFader(LED_PIN);
+    onLight();
+  #endif
 }
 
 /* MAIN */
@@ -316,6 +317,7 @@ void timerAction() {
     refreshDisplay = true;
     if (currentTime < 0) {
       
+
       
       offRelay();
     }
