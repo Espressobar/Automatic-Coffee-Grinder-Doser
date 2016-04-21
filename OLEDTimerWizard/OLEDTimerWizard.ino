@@ -74,9 +74,9 @@
 #define BTN_PIN        4  // Push button
 #define QBTN_PIN_1     5  // pin quick-button 1
 #define QBTN_PIN_2     6  // pin quick-button 2
-#define RELAY_PIN     13  // pin relay activation
+#define RELAY_PIN      8
 #define LED_PIN       10  //Pin for LED-light.
-#define PINtoRESET    12  // connect wire from this pin to rst in order to use the soft-reset function
+#define PINtoRESET     12 // connect wire from this pin to rst in order to use the soft-reset function
 
 // read settings from EEPROM if version number is correct; change version number to reset settings
 byte eepromVersionNumber = 20;
