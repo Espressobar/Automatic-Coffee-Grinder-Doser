@@ -247,6 +247,10 @@ void offRelay() {
       setupStateIdx = STEP3; 
     } else setupStateIdx = STEP2_2;
   } else stateIdx = SJOFF;        // else: back to normal menu
+        #ifdef LIGHT
+        direction = DIR_DOWN;
+        led.fade(MIN_LIGHT, 5000);
+        #endif
   addEncoderIdleTime(1000);
 }
 

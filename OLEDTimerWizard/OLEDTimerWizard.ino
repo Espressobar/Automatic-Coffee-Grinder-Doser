@@ -65,7 +65,7 @@
 #include <U8glib.h>       // see above
 #include <avr/eeprom.h>   // enable eeprom read and write
 #include <stdio.h>
-#include <LEDFader.h>
+#include <LEDFader.h>     // https://github.com/jgillick/arduino-LEDFader
 
 // *** BEGIN OF CONFIG SECTION ************************************************************************************************************************
 // define arduino pins
@@ -74,9 +74,9 @@
 #define BTN_PIN        4  // Push button
 #define QBTN_PIN_1     5  // pin quick-button 1
 #define QBTN_PIN_2     6  // pin quick-button 2
-#define RELAY_PIN     13  // pin relay activation
+#define RELAY_PIN      8
 #define LED_PIN       10  //Pin for LED-light.
-#define PINtoRESET    12  // connect wire from this pin to rst in order to use the soft-reset function
+#define PINtoRESET     12 // connect wire from this pin to rst in order to use the soft-reset function
 
 // read settings from EEPROM if version number is correct; change version number to reset settings
 byte eepromVersionNumber = 20;
@@ -202,10 +202,7 @@ ClickButton quickButton2(QBTN_PIN_2, LOW, CLICKBTN_PULLUP);
 /* SET UP */
 void setup() {
 
-  #ifdef LIGHT
-    led = LEDFader(LED_PIN);
-    onLight();
-  #endif
+
 
   pinMode(PINtoRESET, INPUT);    // Just to be clear, as default is INPUT. Not really needed.
   digitalWrite(PINtoRESET, LOW); // Prime it, but does not actually set output.
@@ -266,6 +263,10 @@ void setup() {
   // display bug workaround (not needed on my display)
   //stateIdx = SJSET; drawDisplay();
   //stateIdx = SJOFF; drawDisplay();
+    #ifdef LIGHT
+    led = LEDFader(LED_PIN);
+    onLight();
+  #endif
 }
 
 /* MAIN */
@@ -316,10 +317,7 @@ void timerAction() {
     refreshDisplay = true;
     if (currentTime < 0) {
       
-      #ifdef LIGHT
-        direction = DIR_DOWN;
-        led.fade(MIN_LIGHT, 10000);
-      #endif
+
       
       offRelay();
     }
